@@ -24,7 +24,12 @@ public class Application {
 
     @RequestMapping("/")
     String home() {
-
         return "Hello World! : " + searchService.numDocs() + ", " + searchService.doSomething();
+    }
+
+    @RequestMapping("/percolator/add")
+    String addPercolator() {
+        searchService.createPercolateQueries();
+        return "Added the percolator queries";
     }
 }
