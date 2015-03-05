@@ -1,0 +1,30 @@
+{
+  "name": "geoelastic",
+  "version": "1.0.0",
+  "description": "Application to play with geo and elasticsearch",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jettro/geo-elastic"
+  },
+  "keywords": [
+    "elasticsearch",
+    "dropwizard"
+  ],
+  "author": "Jettro Coenradie",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jettro/geo-elastic/issues"
+  },
+  "homepage": "https://github.com/jettro/geo-elastic",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-bower-task": "^0.4.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-sass": "~0.8.1",
+    "grunt-rsync": "~0.6.2"
+  }
+}

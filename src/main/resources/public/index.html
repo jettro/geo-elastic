@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GEO elastic</title>
+    <link href="/style/app.min.css" rel="stylesheet">
+
+</head>
+<body>
+<navbar heading="GEO elastic">
+    <navbaritem link="dashboard" title="Dashboard"></navbaritem>
+    <navbaritem link="maintain" title="Maintain"></navbaritem>
+</navbar>
+<div class="container-fluid" ng-controller="NotificationCtrl">
+    <alert ng-repeat="(key,value) in alerts" type="{{value.type}}">{{value.message}}</alert>
+</div>
+<div class="container-fluid" ng-view>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <footer>
+                <p>Copyright 2015 Jettro Coenradie</p>
+            </footer>
+        </div>
+    </div>
+</div>
+<script src="/js/geoelastic.js"></script>
+</body>
+</html>

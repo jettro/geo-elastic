@@ -2,8 +2,11 @@ package nl.gridshore.geoelastic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.gridshore.geoelastic.elastic.IndexCreator;
+import org.elasticsearch.action.percolate.PercolateResponse;
+import org.elasticsearch.action.percolate.PercolateSourceBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.geo.GeoPoint;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.FilteredQueryBuilder;
 import org.elasticsearch.index.query.GeoPolygonFilterBuilder;
@@ -29,8 +32,8 @@ import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
  */
 @Service
 public class SearchService {
+    public static final String GEO_INDEX = "geostuff";
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
-
     private Client client;
 
     @Autowired
@@ -50,12 +53,40 @@ public class SearchService {
         return client.prepareSearch("gridshore-*").setQuery(filteredQueryBuilder).get().getHits().getTotalHits();
     }
 
+    public String checkLocationForProvince(double longitude, double latitude) {
+        try {
+            XContentBuilder docToCheck = jsonBuilder()
+                    .startObject()
+                    .startObject("geoip")
+                    .startObject("location")
+                    .field("lat", latitude)
+                    .field("lon", longitude)
+                    .endObject()
+                    .endObject()
+                    .endObject();
+            System.out.println(docToCheck.string());
+            PercolateSourceBuilder.DocBuilder builder = new PercolateSourceBuilder.DocBuilder();
+            builder.setDoc(docToCheck);
+
+            PercolateResponse matches = client.preparePercolate()
+                    .setPercolateDoc(builder)
+                    .setIndices("geostuff")
+                    .setDocumentType("locations")
+                    .get();
+            if (matches.getMatches().length > 0) {
+                return matches.getMatches()[0].getId().toString();
+            }
+            return "Not in a province";
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
+
     public void createPercolateQueries() {
         try {
-            String geostuff = "geostuff";
-            IndexCreator.build(this.client, geostuff)
-                    .settings(StreamUtils.copyToString(new ClassPathResource(geostuff + "-settings.json").getInputStream(), Charset.defaultCharset()))
-                    .addMapping("locations", StreamUtils.copyToString(new ClassPathResource(geostuff + "-mapping.json").getInputStream(), Charset.defaultCharset()))
+            IndexCreator.build(this.client, GEO_INDEX)
+                    .settings(StreamUtils.copyToString(new ClassPathResource(GEO_INDEX + "-settings.json").getInputStream(), Charset.defaultCharset()))
+                    .addMapping("locations", StreamUtils.copyToString(new ClassPathResource(GEO_INDEX + "-mapping.json").getInputStream(), Charset.defaultCharset()))
                     .execute();
             List<String> provinces = Arrays.asList("drenthe", "flevoland", "friesland", "gelderland", "groningen", "limburg", "noordbrabant", "noordholland", "overijssel", "utrecht", "zeeland", "zuidholland");
             provinces.stream().forEach(this::doCreatePercolatorQuery);
@@ -66,10 +97,11 @@ public class SearchService {
 
     private void doCreatePercolatorQuery(String province) {
         try {
-            client.prepareIndex("geostuff", ".percolator", "province_" + province)
+            client.prepareIndex(GEO_INDEX, ".percolator", "province_" + province)
                     .setSource(jsonBuilder()
                                     .startObject()
                                     .field("query", createQuery(province + ".txt"))
+                                    .field("province", province)
                                     .endObject()
                     ).setRefresh(true).get();
         } catch (IOException e) {

@@ -1,0 +1,54 @@
+<p>This application is used to play around with geo data and elasticsearch. It is an AngularJS based application talking
+    to a spring boot based back-end.</p>
+<p>In the next form you can enter a longitude/latitude combination and check the province it is in. Next to the form are
+    a few samples, clicking the city will use the coordinates of that city.</p>
+<div class="row">
+    <div class="col-sm-4" role="form">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Find province for lat/lon</h3>
+            </div>
+            <div class="panel-body">
+                <form ng-submit="findProvince()">
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
+                        <input type="number" class="form-control" ng-model="latitude" placeholder="Enter latitude">
+                    </div>
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
+                        <input type="number" class="form-control" ng-model="longitude" placeholder="Enter longitude">
+                    </div>
+                    <button type="submit" class="btn btn-default">Obtain Province</button>
+                </form>
+                <div class="panel-footer" ng-show="province">{{province}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Select a city</h3>
+            </div>
+            <div class="panel-body">
+                <p>Click a city to fill the longitude/latitude for that city.</p>
+            </div>
+            <table class="table table-hover">
+                <tr>
+                    <td ng-click="selectCity(51.92269,4.470787)">Rotterdam</td>
+                </tr>
+                <tr>
+                    <td ng-click="selectCity(52.060669,4.494025)">Zoetermeer</td>
+                </tr>
+                <tr>
+                    <td ng-click="selectCity(52.373801,4.890935)">Amsterdam</td>
+                </tr>
+                <tr>
+                    <td ng-click="selectCity(52.211157,5.969923)">Apeldoorn</td>
+                </tr>
+                <tr>
+                    <td ng-click="selectCity(51.985103,5.89873)">Arnhem</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

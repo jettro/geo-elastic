@@ -1,0 +1,10 @@
+{
+  "name": "elasticsearch-gui",
+  "dependencies": {
+    "ui-bootstrap": "~0.12.1",
+    "angular": "~1.2",
+    "angular-route": "~1.2",
+    "bootstrap-sass-official": "~3.1.1",
+    "fontawesome": "~4.3.0"
+  }
+}

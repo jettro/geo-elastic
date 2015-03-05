@@ -83,7 +83,6 @@ public class IndexCreator {
     }
 
     private void executeIndexCreation() {
-        IndicesOptions.strictExpandOpen();
         client.admin().indices().prepareDelete(this.index + "*")
                 .setIndicesOptions(IndicesOptions.fromOptions(true, true, true, false)).get();
 

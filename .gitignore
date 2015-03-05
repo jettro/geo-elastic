@@ -6,3 +6,7 @@ pom.xml.next
 release.properties
 
 .idea
+*.iml
+bower_components
+node_modules
+.sass-cache
