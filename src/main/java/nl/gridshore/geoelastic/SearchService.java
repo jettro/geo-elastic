@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.gridshore.geoelastic.elastic.IndexCreator;
 import org.elasticsearch.action.percolate.PercolateResponse;
 import org.elasticsearch.action.percolate.PercolateSourceBuilder;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -41,30 +42,27 @@ public class SearchService {
         this.client = client;
     }
 
-    public long numDocs() {
-
-        return client.prepareCount("gridshore-*").get().getCount();
+    public long numberOfPostalCodes() {
+        return client.prepareSearch(GEO_INDEX).setTypes("locations").setSearchType(SearchType.COUNT)
+                .get().getHits().getTotalHits();
     }
 
     public long doSomething() {
         String provincePoints = "noordholland.txt";
         FilteredQueryBuilder filteredQueryBuilder = createQuery(provincePoints);
 
-        return client.prepareSearch("gridshore-*").setQuery(filteredQueryBuilder).get().getHits().getTotalHits();
+        return client.prepareSearch("geostuff").setQuery(filteredQueryBuilder).get().getHits().getTotalHits();
     }
 
     public String checkLocationForProvince(double longitude, double latitude) {
         try {
             XContentBuilder docToCheck = jsonBuilder()
                     .startObject()
-                    .startObject("geoip")
                     .startObject("location")
                     .field("lat", latitude)
                     .field("lon", longitude)
                     .endObject()
-                    .endObject()
                     .endObject();
-            System.out.println(docToCheck.string());
             PercolateSourceBuilder.DocBuilder builder = new PercolateSourceBuilder.DocBuilder();
             builder.setDoc(docToCheck);
 
@@ -78,6 +76,7 @@ public class SearchService {
             }
             return "Not in a province";
         } catch (IOException e) {
+            logger.error("Problem while checking a provided point for a provence");
             return e.getMessage();
         }
     }
@@ -122,7 +121,7 @@ public class SearchService {
             polygon.add(new GeoPoint(s));
         });
 
-        GeoPolygonFilterBuilder geoPolygonFilterBuilder = FilterBuilders.geoPolygonFilter("geoip.location");
+        GeoPolygonFilterBuilder geoPolygonFilterBuilder = FilterBuilders.geoPolygonFilter("location");
 
         polygon.stream().forEach(geoPolygonFilterBuilder::addPoint);
 

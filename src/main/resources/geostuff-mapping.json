@@ -1,14 +1,37 @@
 {
   "properties": {
-    "name": {
-      "type": "string"
-    },
-    "geoip": {
-      "properties": {
-        "location": {
-          "type": "geo_point"
+    "city": {
+      "type": "string",
+      "fields": {
+        "raw": {
+          "type": "string",
+          "index": "not_analyzed"
         }
       }
+    },
+    "province": {
+      "type": "string",
+      "fields": {
+        "raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    },
+    "numberType": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "postalCode": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "provinceCode": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "location": {
+      "type": "geo_point"
     }
   }
 }

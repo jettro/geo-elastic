@@ -7,9 +7,27 @@
             </div>
             <div class="panel-body">
                 <p>Using this button makes you remove the complete index and recreate all percolator queries for the
-                    prvinces.</p>
+                    provinces.</p>
                 <button type="button" class="btn btn-default" ng-click="restorePercolators()">Restore percolators
                 </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" role="form">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Postal codes</h3>
+            </div>
+            <div class="panel-body">
+                <p>Using this button imports all postal codes</p>
+                <button type="button" class="btn btn-default" ng-click="restorePostalCodes()">Restore postal codes
+                </button>
+            </div>
+            <div class="panel-footer">
+                <p>Number of postal codes: {{numberPostalCodes}}
+                    <button type="button" class="btn btn-default btn-xs" title="Refresh"
+                            ng-click="countPostalCodes()"><span class="fa fa-refresh"></span></button>
+                </p>
             </div>
         </div>
     </div>

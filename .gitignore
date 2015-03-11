@@ -10,3 +10,5 @@ release.properties
 bower_components
 node_modules
 .sass-cache
+
+postcode_NL_head.csv

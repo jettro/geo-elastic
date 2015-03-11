@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Class used to create a new index, the index will use the timestamp and an alias. The old index is thrown
+ * away.
  */
 public class IndexCreator {
     private static final Logger logger = LoggerFactory.getLogger(IndexCreator.class);
@@ -34,7 +35,7 @@ public class IndexCreator {
     /* API Methods */
 
     /**
-     * Initialize the index builder using the elasticsearch client and the name of the index or alias.
+     * Initialize the index builder using the elasticsearch client and the name of the alias.
      *
      * @param client Client with connection to elasticsearch cluster
      * @param index  String containing the name for the index or the alias

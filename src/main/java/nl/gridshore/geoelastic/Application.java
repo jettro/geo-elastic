@@ -1,10 +1,13 @@
 package nl.gridshore.geoelastic;
 
+import nl.gridshore.geoelastic.postalcode.ImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Main class to start working with spring.
@@ -19,13 +22,14 @@ public class Application {
     @Autowired
     SearchService searchService;
 
+    @Autowired
+    ImportService importService;
+
+    @Autowired
+    StorageService storageService;
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @RequestMapping("/")
-    String home() {
-        return "Hello World! : " + searchService.numDocs() + ", " + searchService.doSomething();
     }
 
     @RequestMapping("/percolator/add")
@@ -39,9 +43,14 @@ public class Application {
         return searchService.checkLocationForProvince(lon, lat);
     }
 
-    @RequestMapping(value = "/city/add", method = RequestMethod.POST)
-    String addCityForm(@RequestBody City city) {
-        System.out.println(city.toString());
-        return "city stored";
+    @RequestMapping("/postalcode/import")
+    String importPostalCodes() {
+        importService.importPostalCodes(storageService::storePostalCode);
+        return "postal codes imported";
+    }
+
+    @RequestMapping("/postalcode/count")
+    long countPostalCodes() {
+        return searchService.numberOfPostalCodes();
     }
 }

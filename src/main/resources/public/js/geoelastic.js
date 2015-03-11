@@ -1,4 +1,4 @@
-/*! geoelastic - v1.0.0 - 2015-03-05
+/*! geoelastic - v1.0.0 - 2015-03-06
 * https://github.com/jettro/geo-elastic
 * Copyright (c) 2015 ; Licensed  */
 (function(window, document, undefined) {'use strict';
@@ -27318,6 +27318,8 @@ DashboardCtrl.$inject = ['$scope', '$http'];
 
 function MaintainCtrl($scope, $http, $rootScope) {
 
+    $scope.numberPostalCodes = 0;
+
     $scope.restorePercolators = function () {
         $http.get('/percolator/add').success(function (data) {
             $scope.province = data;
@@ -27325,9 +27327,23 @@ function MaintainCtrl($scope, $http, $rootScope) {
         });
     };
 
+    $scope.restorePostalCodes = function () {
+        $http.get('/postalcode/import').success(function (data) {
+            createNotification(data);
+        });
+    };
+
+    $scope.countPostalCodes = function () {
+        $http.get('/postalcode/count').success(function (data) {
+            $scope.numberPostalCodes = data;
+        });
+    };
+
     function createNotification(message) {
         $rootScope.$broadcast('msg:notification', 'success', message);
     }
+
+    $scope.countPostalCodes();
 }
 MaintainCtrl.$inject = ['$scope', '$http', '$rootScope'];
 
