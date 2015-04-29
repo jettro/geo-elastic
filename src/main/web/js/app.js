@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('myApp', ['ngRoute', 'myApp.services', 'myApp.directives.navbar', 'myApp.directives.confirm', 'ui.bootstrap']);
+var myApp = angular.module('myApp', ['ngRoute', 'myApp.services', 'myApp.directives.navbar', 'myApp.directives.confirm', 'ui.bootstrap', 'leaflet-directive']);
 
 myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/dashboard', {templateUrl: '/partials/dashboard.html', controller: 'DashboardCtrl'});

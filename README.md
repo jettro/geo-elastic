@@ -21,3 +21,5 @@ http://www.imergis.nl/asp/47.asp - Downloaden van shape files for provinces of T
 https://github.com/opendatalab-de/geojson-jackson
 
 https://gist.github.com/lekkerduidelijk/4387055
+
+https://github.com/tombatossals/angular-leaflet-directive

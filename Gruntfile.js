@@ -28,6 +28,8 @@ module.exports = function (grunt) {
                     'bower_components/angular/angular.js',
                     'bower_components/angular-route/angular-route.js',
                     'bower_components/ui-bootstrap/dist/ui-bootstrap-tpls-0.12.1.js',
+                    'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+                    'bower_components/leaflet/dist/leaflet.js',
                     'src/main/web/js/app.js',
                     'src/main/web/js/controllers/*',
                     'src/main/web/js/directives/*',
@@ -67,7 +69,8 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'src/main/resources/public/style/app.min.css': 'src/main/web/sass/style.scss'
+                    'src/main/resources/public/style/app.min.css': 'src/main/web/sass/style.scss',
+                    'src/main/resources/public/style/leaflet.min.css': 'bower_components/leaflet/dist/leaflet.css'
                 }
             }
         },

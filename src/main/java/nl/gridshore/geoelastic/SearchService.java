@@ -2,6 +2,7 @@ package nl.gridshore.geoelastic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.gridshore.geoelastic.elastic.IndexCreator;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.percolate.PercolateResponse;
 import org.elasticsearch.action.percolate.PercolateSourceBuilder;
 import org.elasticsearch.action.search.SearchType;
@@ -23,6 +24,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
@@ -92,6 +94,19 @@ public class SearchService {
         } catch (IOException e) {
             throw new RuntimeException("Cannot create the polyglot query");
         }
+    }
+
+    public Province obtainPercolatedProvince(String province) {
+        GetResponse response = client.prepareGet(GEO_INDEX, ".percolator", province).setFetchSource("query.filtered.filter.*", null).get();
+        Map<String, Object> source = response.getSource();
+        Map<String, Object> query = (Map<String, Object>) source.get("query");
+        Map<String, Object> filtered = (Map<String, Object>) query.get("filtered");
+        Map<String, Object> filter = (Map<String, Object>) filtered.get("filter");
+        Map<String, Object> geoPolugon = (Map<String, Object>) filter.get("geo_polygon");
+        Map<String, Object> location = (Map<String, Object>) geoPolugon.get("location");
+        ArrayList<ArrayList<Double>> points = (ArrayList<ArrayList<Double>>) location.get("points");
+
+        return new Province(province, points);
     }
 
     private void doCreatePercolatorQuery(String province) {

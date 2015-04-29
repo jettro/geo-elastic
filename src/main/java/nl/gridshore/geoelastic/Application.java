@@ -43,6 +43,11 @@ public class Application {
         return searchService.checkLocationForProvince(lon, lat);
     }
 
+    @RequestMapping("/percolator/province")
+    Province obtainProvince(@RequestParam("province") String province) {
+        return searchService.obtainPercolatedProvince(province);
+    }
+
     @RequestMapping("/postalcode/import")
     String importPostalCodes() {
         importService.importPostalCodes(storageService::storePostalCode);
