@@ -27350,7 +27350,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 return element[0].getAttribute('width');
                             },
                             function () {
-                                updateWidth();
+                        updateWidth();
                                 map.invalidateSize();
                             });
                     }
@@ -27365,7 +27365,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 return element[0].getAttribute('height');
                             },
                             function () {
-                                updateHeight();
+                        updateHeight();
                                 map.invalidateSize();
                             });
                     }
@@ -27410,8 +27410,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             var eventName = mapEvents[i];
                             map.on(eventName, genDispatchMapEvent(scope, eventName, logic), {
                                 eventName: eventName
-                            });
-                        }
+                    });
+                }
                     }
 
                     // Resolve the map object to the promises
@@ -27430,7 +27430,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     scope.$on('invalidateSize', function () {
                         map.invalidateSize();
                     });
-                }
+        }
             };
         }]);
 
@@ -27451,7 +27451,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 if (_isValidBounds(bounds)) {
                     return L.latLngBounds([bounds.southWest.lat, bounds.southWest.lng],
                         [bounds.northEast.lat, bounds.northEast.lng]);
-                }
+            }
             },
 
             isValidBounds: _isValidBounds,
@@ -27464,7 +27464,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     isNumber(boundsArray[1][0]) && isNumber(boundsArray[1][1]))) {
                     $log.error("[AngularJS - Leaflet] The bounds array is not valid.");
                     return;
-                }
+            }
 
                 return {
                     northEast: {
@@ -27521,7 +27521,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 collapsed: defaults.controls.layers.collapsed,
                 position: defaults.controls.layers.position,
                 autoZIndex: false
-            };
+        };
 
             angular.extend(controlOptions, defaults.controls.layers.options);
 
@@ -27546,7 +27546,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 if (isDefined(_layersControl) && loaded) {
                     for (i in leafletLayers.baselayers) {
                         _layersControl.removeLayer(leafletLayers.baselayers[i]);
-                    }
+                }
                     for (i in leafletLayers.overlays) {
                         _layersControl.removeLayer(leafletLayers.overlays[i]);
                     }
@@ -27562,18 +27562,18 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             baselayers[i].layerOptions.showOnSelector === false;
                         if (!hideOnSelector && isDefined(leafletLayers.baselayers[i])) {
                             _layersControl.addBaseLayer(leafletLayers.baselayers[i], baselayers[i].name);
-                        }
+                    }
                     }
                     for (i in overlays) {
                         var hideOverlayOnSelector = isDefined(overlays[i].layerParams) &&
                             overlays[i].layerParams.showOnSelector === false;
                         if (!hideOverlayOnSelector && isDefined(leafletLayers.overlays[i])) {
                             _layersControl.addOverlay(leafletLayers.overlays[i], overlays[i].name);
-                        }
                     }
+                }
 
                     map.addControl(_layersControl);
-                }
+            }
                 return mustBeLoaded;
             }
         };
@@ -27609,9 +27609,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
         this.unresolveMap = function (scopeId) {
             var id = leafletHelpers.obtainEffectiveMapId(_private.map, scopeId);
-            _privateItems.forEach(function (itemName) {
-                _private[itemName][id] = undefined;
-            });
+        _privateItems.forEach(function (itemName) {
+            _private[itemName][id] = undefined;
+        });
         };
 
         //int repetitive stuff (get and sets)
@@ -27621,7 +27621,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 var defer = getUnresolvedDefer(_private[itemName], scopeId);
                 defer.resolve(lObject);
                 setResolvedDefer(_private[itemName], scopeId);
-            };
+        };
 
             self['get' + name] = function (scopeId) {
                 var defer = getDefer(_private[itemName], scopeId);
@@ -27725,7 +27725,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         lHlp.isNumber(coords.coordinates[0]) &&
                         lHlp.isNumber(coords.coordinates[1])) {
                         return true;
-                    }
+                }
                 }
 
                 var ret = lIt.all(['lat', 'lng'], function (pos) {
@@ -27788,7 +27788,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
             pathStr.split('.').forEach(function (value) {
                 if (obj) {
                     obj = obj[value];
-                }
+            }
             });
             return obj;
         };
@@ -27825,8 +27825,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     for (i in d) {
                         if (d.hasOwnProperty(i)) {
                             id = i;
-                        }
-                    }
+                }
+            }
                 } else if (Object.keys(d).length === 0) {
                     id = "main";
                 } else {
@@ -27834,7 +27834,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 }
             } else {
                 id = mapId;
-            }
+        }
 
             return id;
         }
@@ -27851,7 +27851,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 };
             } else {
                 defer = d[id].defer;
-            }
+        }
 
             return defer;
         }
@@ -27990,9 +27990,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     if (this.isLoaded()) {
                         return icon instanceof L.AwesomeMarkers.Icon;
                     } else {
-                        return false;
-                    }
-                },
+                    return false;
+                }
+            },
                 equal: function (iconA, iconB) {
                     if (!this.isLoaded()) {
                         return false;
@@ -28008,27 +28008,27 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
             PolylineDecoratorPlugin: {
                 isLoaded: function () {
                     if (angular.isDefined(L.PolylineDecorator)) {
-                        return true;
+                    return true;
                     } else {
                         return false;
-                    }
-                },
+                }
+            },
                 is: function (decoration) {
                     if (this.isLoaded()) {
                         return decoration instanceof L.PolylineDecorator;
-                    } else {
+                } else {
                         return false;
-                    }
-                },
+                }
+            },
                 equal: function (decorationA, decorationB) {
                     if (!this.isLoaded()) {
                         return false;
                     }
                     if (this.is(decorationA)) {
                         return angular.equals(decorationA, decorationB);
-                    } else {
+                } else {
                         return false;
-                    }
+                }
                 }
             },
 
@@ -28038,24 +28038,24 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         return true;
                     } else {
                         return false;
-                    }
-                },
+                }
+            },
                 is: function (icon) {
                     if (this.isLoaded()) {
                         return icon instanceof L.MakiMarkers.Icon;
                     } else {
                         return false;
-                    }
-                },
+                }
+            },
                 equal: function (iconA, iconB) {
                     if (!this.isLoaded()) {
                         return false;
-                    }
+                }
                     if (this.is(iconA)) {
                         return angular.equals(iconA, iconB);
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             ExtraMarkersPlugin: {
@@ -28065,18 +28065,18 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     } else {
                         return false;
                     }
-                },
+            },
                 is: function (icon) {
                     if (this.isLoaded()) {
                         return icon instanceof L.ExtraMarkers.Icon;
                     } else {
                         return false;
-                    }
-                },
+                }
+            },
                 equal: function (iconA, iconB) {
                     if (!this.isLoaded()) {
                         return false;
-                    }
+                }
                     if (this.is(iconA)) {
                         return angular.equals(iconA, iconB);
                     } else {
@@ -28087,37 +28087,37 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
             LabelPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.Label);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.MarkerClusterGroup;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             MarkerClusterPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.MarkerClusterGroup);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.MarkerClusterGroup;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             GoogleLayerPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.Google);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.Google;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             ChinaLayerPlugin: {
@@ -28138,92 +28138,92 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
             BingLayerPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.BingLayer);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.BingLayer;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             WFSLayerPlugin: {
                 isLoaded: function () {
                     return L.GeoJSON.WFS !== undefined;
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.GeoJSON.WFS;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             AGSLayerPlugin: {
                 isLoaded: function () {
                     return lvector !== undefined && lvector.AGS !== undefined;
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof lvector.AGS;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             YandexLayerPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.Yandex);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.Yandex;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             DynamicMapLayerPlugin: {
                 isLoaded: function () {
                     return L.esri !== undefined && L.esri.dynamicMapLayer !== undefined;
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.esri.dynamicMapLayer;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             GeoJSONPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.TileLayer.GeoJSON);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.TileLayer.GeoJSON;
                     } else {
                         return false;
-                    }
+                }
                 }
             },
             UTFGridPlugin: {
                 isLoaded: function () {
                     return angular.isDefined(L.UtfGrid);
-                },
+            },
                 is: function (layer) {
                     if (this.isLoaded()) {
                         return layer instanceof L.UtfGrid;
                     } else {
                         $log.error('[AngularJS - Leaflet] No UtfGrid plugin found.');
                         return false;
-                    }
+                }
                 }
             },
             CartoDB: {
                 isLoaded: function () {
                     return cartodb;
-                },
+            },
                 is: function (/*layer*/) {
                     return true;
                     /*
@@ -28238,26 +28238,26 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 DivIcon: {
                     is: function (icon) {
                         return icon instanceof L.DivIcon;
-                    },
+                },
                     equal: function (iconA, iconB) {
                         if (this.is(iconA)) {
                             return angular.equals(iconA, iconB);
-                        } else {
-                            return false;
-                        }
+                    } else {
+                        return false;
                     }
-                },
+                }
+            },
                 Icon: {
                     is: function (icon) {
                         return icon instanceof L.Icon;
-                    },
+                },
                     equal: function (iconA, iconB) {
                         if (this.is(iconA)) {
                             return angular.equals(iconA, iconB);
-                        } else {
-                            return false;
-                        }
+                    } else {
+                        return false;
                     }
+                }
                 }
             },
             /*
@@ -28277,7 +28277,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 individual: {
                     doWatch: true,
                     isDeep: true
-                }
+            }
             }
         };
     }]);
@@ -28502,9 +28502,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     createLayer: function (params) {
                         if (!Helpers.GeoJSONPlugin.isLoaded()) {
                             return;
-                        }
+                }
                         return new L.TileLayer.GeoJSON(params.url, params.pluginOptions, params.options);
-                    }
+            }
                 },
                 utfGrid: {
                     mustHaveUrl: true,
@@ -28515,7 +28515,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     createLayer: function (params) {
                         var url = '//' + params.user + '.cartodb.com/api/v1/map/' + params.key + '/{z}/{x}/{y}.png';
                         return L.tileLayer(url, params.options);
-                    }
+            }
                 },
                 cartodbUTFGrid: {
                     mustHaveKey: true,
@@ -28618,16 +28618,16 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             this.setMap(null);
                         };
                         return layer;
-                    }
+            }
                 },
                 dynamic: {
                     mustHaveUrl: true,
                     createLayer: function (params) {
                         if (!Helpers.DynamicMapLayerPlugin.isLoaded()) {
                             return;
-                        }
+                }
                         return L.esri.dynamicMapLayer(params.url, params.options);
-                    }
+            }
                 },
                 markercluster: {
                     mustHaveUrl: false,
@@ -28688,8 +28688,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     createLayer: function (params) {
                         var type = params.type || 'map';
                         if (!Helpers.YandexLayerPlugin.isLoaded()) {
-                            return;
-                        }
+                    return;
+                }
                         return new L.Yandex(type, params.options);
                     }
                 },
@@ -28852,7 +28852,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     div.innerHTML +=
                         '<div class="outline"><i style="background:' + legend.colors[i] + '"></i></div>' +
                         '<div class="info-label">' + legend.labels[i] + '</div>';
-                }
+            }
                 if (!L.Browser.touch) {
                     L.DomEvent.disableClickPropagation(div);
                     L.DomEvent.on(div, 'mousewheel', L.DomEvent.stopPropagation);
@@ -28889,7 +28889,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         visible: true,
                         position: 'topright',
                         collapsed: true
-                    }
+                }
                 },
                 crs: L.CRS.EPSG3857,
                 tileLayer: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28937,11 +28937,11 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     attributionControl: d.attributionControl,
                     worldCopyJump: d.worldCopyJump,
                     crs: d.crs
-                };
+            };
 
                 if (isDefined(d.minZoom)) {
                     mapDefaults.minZoom = d.minZoom;
-                }
+            }
 
                 if (isDefined(d.zoomAnimation)) {
                     mapDefaults.zoomAnimation = d.zoomAnimation;
@@ -28958,7 +28958,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 if (d.map) {
                     for (var option in d.map) {
                         mapDefaults[option] = d.map[option];
-                    }
+                }
                 }
 
                 return mapDefaults;
@@ -28988,23 +28988,23 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         newDefaults.crs = userDefaults.crs;
                     } else if (isDefined(L.CRS[userDefaults.crs])) {
                         newDefaults.crs = L.CRS[userDefaults.crs];
-                    }
+                }
 
                     if (isDefined(userDefaults.center)) {
                         angular.copy(userDefaults.center, newDefaults.center);
-                    }
+                }
 
                     if (isDefined(userDefaults.tileLayerOptions)) {
                         angular.copy(userDefaults.tileLayerOptions, newDefaults.tileLayerOptions);
-                    }
+                }
 
                     if (isDefined(userDefaults.maxZoom)) {
                         newDefaults.maxZoom = userDefaults.maxZoom;
-                    }
+                }
 
                     if (isDefined(userDefaults.minZoom)) {
                         newDefaults.minZoom = userDefaults.minZoom;
-                    }
+                }
 
                     if (isDefined(userDefaults.zoomAnimation)) {
                         newDefaults.zoomAnimation = userDefaults.zoomAnimation;
@@ -29091,7 +29091,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 if (isDefined(iconData) && isDefined(iconData.type) && iconData.type === 'extraMarker') {
                     if (!ExtraMarkersPlugin.isLoaded()) {
                         $log.error(errorHeader + 'The ExtraMarkers Plugin is not loaded.');
-                    }
+            }
                     return new L.ExtraMarkers.icon(iconData);
                 }
 
@@ -29141,8 +29141,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             if (layers.overlays[key].hasLayer(marker)) {
                                 layers.overlays[key].removeLayer(marker);
                                 return;
-                            }
-                        }
+                    }
+                }
                     }
                 }
 
@@ -29150,7 +29150,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     for (var groupKey in groups) {
                         if (groups[groupKey].hasLayer(marker)) {
                             groups[groupKey].removeLayer(marker);
-                        }
+                }
                     }
                 }
 
@@ -29173,7 +29173,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     var updatePopup = function (popup) {
                         popup._updateLayout();
                         popup._updatePosition();
-                    };
+            };
 
                     if (compileMessage) {
                         $compile(popup._contentNode)(markerScope);
@@ -29183,7 +29183,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 updatePopup(popup);
                                 unregister();
                             });
-                        }
+                }
                         else {
                             updatePopup(popup);
                         }
@@ -29237,7 +29237,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         riseOnHover: isDefined(markerData.riseOnHover) ? markerData.riseOnHover : false,
                         zIndexOffset: isDefined(markerData.zIndexOffset) ? markerData.zIndexOffset : 0,
                         iconAngle: isDefined(markerData.iconAngle) ? markerData.iconAngle : 0
-                    };
+            };
                     // Add any other options not added above to markerOptions
                     for (var markerDatum in markerData) {
                         if (markerData.hasOwnProperty(markerDatum) && !markerOptions.hasOwnProperty(markerDatum)) {
@@ -29332,12 +29332,12 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 if (isDefined(layers.overlays[oldMarkerData.layer]) && layers.overlays[oldMarkerData.layer].hasLayer(marker)) {
                                     layers.overlays[oldMarkerData.layer].removeLayer(marker);
                                     marker.closePopup();
-                                }
+                        }
                                 // Test if it is not on the map and add it
                                 if (!map.hasLayer(marker)) {
                                     map.addLayer(marker);
                                 }
-                            }
+                    }
                         }
 
                         if ((isNumber(markerData.opacity) || isNumber(parseFloat(markerData.opacity))) && markerData.opacity !== oldMarkerData.opacity) {
@@ -29349,7 +29349,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             // If it was on a layer group we have to remove it
                             if (isString(oldMarkerData.layer) && isDefined(layers.overlays[oldMarkerData.layer]) && layers.overlays[oldMarkerData.layer].hasLayer(marker)) {
                                 layers.overlays[oldMarkerData.layer].removeLayer(marker);
-                            }
+                    }
                             marker.closePopup();
 
                             // Remove it from the map in case the new layer is hidden or there is an error in the new layer
@@ -29360,21 +29360,21 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             // The markerData.layer is defined so we add the marker to the layer if it is different from the old data
                             if (!isDefined(layers.overlays[markerData.layer])) {
                                 $log.error(errorHeader + 'You must use a name of an existing layer');
-                                return;
-                            }
+                        return;
+                    }
                             // Is a group layer?
                             var layerGroup = layers.overlays[markerData.layer];
                             if (!(layerGroup instanceof L.LayerGroup || layerGroup instanceof L.FeatureGroup)) {
                                 $log.error(errorHeader + 'A marker can only be added to a layer of type "group" or "featureGroup"');
-                                return;
-                            }
+                        return;
+                    }
                             // The marker goes to a correct layer group, so first of all we add it
                             layerGroup.addLayer(marker);
                             // The marker is automatically added to the map depending on the visibility
                             // of the layer, so we only have to open the popup if the marker is in the map
                             if (map.hasLayer(marker) && markerData.focus === true) {
                                 _manageOpenPopup(marker, markerData);
-                            }
+                    }
                         }
 
                         // Update the draggable property
@@ -29391,7 +29391,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     marker.dragging = new L.Handler.MarkerDrag(marker);
                                     marker.options.draggable = true;
                                     marker.dragging.enable();
-                                }
+                        }
                             }
                         }
 
@@ -29405,7 +29405,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 marker.unbindPopup();
                                 if (isString(markerData.message)) {
                                     marker.bindPopup(markerData.message, markerData.popupOptions);
-                                }
+                        }
                             }
                         }
 
@@ -29441,11 +29441,11 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     _manageOpenLabel(marker, markerData);
                                 } else {
                                     _manageOpenLabel(marker, markerData);
-                                }
+                        }
                             } else if (!('label' in markerData && !('message' in markerData.label))) {
                                 if (angular.isFunction(marker.unbindLabel)) {
                                     marker.unbindLabel();
-                                }
+                        }
                             }
                         }
 
@@ -29493,7 +29493,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     layers.overlays[markerData.layer].removeLayer(marker);
                                     marker.setLatLng([markerData.lat, markerData.lng]);
                                     layers.overlays[markerData.layer].addLayer(marker);
-                                }
+                        }
                             } else {
                                 // The marker has possibly moved. It can be moved by a user drag (marker location and data are equal but old
                                 // data is diferent) or programatically (marker location and data are diferent)
@@ -29510,7 +29510,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 } else if (isObject(markerData.icon) && isObject(oldMarkerData.icon) && !angular.equals(markerData.icon, oldMarkerData.icon)) {
                                     layers.overlays[markerData.layer].removeLayer(marker);
                                     layers.overlays[markerData.layer].addLayer(marker);
-                                }
+                        }
                             }
                         } else if (markerLatLng.lat !== markerData.lat || markerLatLng.lng !== markerData.lng) {
                             marker.setLatLng([markerData.lat, markerData.lng]);
@@ -29570,7 +29570,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 } else if (isDefined(defaults.path[optionName])) {
                     options[optionName] = defaults.path[optionName];
                 }
-            }
+        }
 
             return options;
         }
@@ -29581,21 +29581,21 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 var optionName = availableOptions[i];
                 if (isDefined(data[optionName])) {
                     updatedStyle[optionName] = data[optionName];
-                }
             }
+        }
             path.setStyle(data);
         };
 
         var _isValidPolyline = function (latlngs) {
             if (!isArray(latlngs)) {
                 return false;
-            }
+        }
             for (var i = 0; i < latlngs.length; i++) {
                 var point = latlngs[i];
                 if (!isValidPoint(point)) {
                     return false;
-                }
             }
+        }
             return true;
         };
 
@@ -29612,27 +29612,27 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     path.setLatLngs(_convertToLeafletLatLngs(data.latlngs));
                     _updatePathOptions(path, data);
                     return;
-                }
+            }
             },
             multiPolyline: {
                 isValid: function (pathData) {
                     var latlngs = pathData.latlngs;
                     if (!isArray(latlngs)) {
-                        return false;
-                    }
+                    return false;
+                }
 
                     for (var i in latlngs) {
                         var polyline = latlngs[i];
                         if (!_isValidPolyline(polyline)) {
-                            return false;
-                        }
+                        return false;
                     }
+                }
 
                     return true;
-                },
+            },
                 createPath: function (options) {
                     return new L.multiPolyline([[[0, 0], [1, 1]]], options);
-                },
+            },
                 setPath: function (path, data) {
                     path.setLatLngs(_convertToLeafletMultiLatLngs(data.latlngs));
                     _updatePathOptions(path, data);
@@ -29664,8 +29664,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     for (var i in latlngs) {
                         var polyline = latlngs[i];
                         if (!_isValidPolyline(polyline)) {
-                            return false;
-                        }
+                        return false;
+                    }
                     }
 
                     return true;
@@ -29685,17 +29685,17 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
                     if (!isArray(latlngs) || latlngs.length !== 2) {
                         return false;
-                    }
+                }
 
                     for (var i in latlngs) {
                         var point = latlngs[i];
                         if (!isValidPoint(point)) {
-                            return false;
-                        }
+                        return false;
                     }
+                }
 
                     return true;
-                },
+            },
                 createPath: function (options) {
                     return new L.Rectangle([[0, 0], [1, 1]], options);
                 },
@@ -29716,7 +29716,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     path.setLatLng(_convertToLeafletLatLng(data.latlngs));
                     if (isDefined(data.radius)) {
                         path.setRadius(data.radius);
-                    }
+                }
                     _updatePathOptions(path, data);
                 }
             },
@@ -29724,7 +29724,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 isValid: function (pathData) {
                     var point = pathData.latlngs;
                     return isValidPoint(point) && isNumber(pathData.radius);
-                },
+            },
                 createPath: function (options) {
                     return new L.CircleMarker([0, 0], options);
                 },
@@ -29732,9 +29732,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     path.setLatLng(_convertToLeafletLatLng(data.latlngs));
                     if (isDefined(data.radius)) {
                         path.setRadius(data.radius);
-                    }
-                    _updatePathOptions(path, data);
                 }
+                    _updatePathOptions(path, data);
+            }
             }
         };
 
@@ -29755,7 +29755,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
             setPathOptions: function (leafletPath, pathType, data) {
                 if (!isDefined(pathType)) {
                     pathType = "polyline";
-                }
+            }
                 pathTypes[pathType].setPath(leafletPath, data);
             },
             createPath: function (name, path, defaults) {
@@ -29768,7 +29768,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 if (!pathTypes[path.type].isValid(pathData)) {
                     $log.error("[AngularJS - Leaflet] Invalid data passed to the " + path.type + " path");
                     return;
-                }
+            }
 
                 return pathTypes[path.type].createPath(options);
             }
@@ -29833,7 +29833,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                 var emptyBounds = function (bounds) {
                     return (bounds._southWest.lat === 0 && bounds._southWest.lng === 0 &&
                     bounds._northEast.lat === 0 && bounds._northEast.lng === 0);
-                };
+            };
 
                 mapController.getMap().then(function (map) {
                     leafletScope.$on('boundsChanged', function (event) {
@@ -29938,16 +29938,16 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             safeApply(leafletScope, function (scope) {
                                 var mapBounds = map.getBounds();
                                 scope.bounds = {
-                                    northEast: {
-                                        lat: mapBounds._northEast.lat,
-                                        lng: mapBounds._northEast.lng
-                                    },
-                                    southWest: {
-                                        lat: mapBounds._southWest.lat,
-                                        lng: mapBounds._southWest.lng
-                                    }
-                                };
-                            });
+                            northEast: {
+                                lat: mapBounds._northEast.lat,
+                                lng: mapBounds._northEast.lng
+                            },
+                            southWest: {
+                                lat: mapBounds._southWest.lat,
+                                lng: mapBounds._southWest.lng
+                            }
+                        };
+                    });
                         } else if (!isDefined(centerModel)) {
                             $log.error('The "center" property is not defined in the main scope');
                             map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);
@@ -29970,7 +29970,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                             zoom: parseInt(cParam[2], 10)
                                         };
                                     }
-                                }
+                        }
                                 return centerParam;
                             };
                             urlCenterHash = extractCenterFromUrl();
@@ -29986,7 +29986,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         lng: urlCenter.lng,
                                         zoom: urlCenter.zoom
                                     };
-                                }
+                        }
                             });
                         }
 
@@ -30006,15 +30006,15 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
                             if (center.autoDiscover === true) {
                                 if (!isNumber(center.zoom)) {
-                                    map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);
-                                }
+                            map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);
+                        }
                                 if (isNumber(center.zoom) && center.zoom > defaults.center.zoom) {
                                     map.locate({setView: true, maxZoom: center.zoom});
                                 } else if (isDefined(defaults.maxZoom)) {
                                     map.locate({setView: true, maxZoom: defaults.maxZoom});
                                 } else {
                                     map.locate({setView: true});
-                                }
+                        }
                                 return;
                             }
 
@@ -30055,7 +30055,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         lng: map.getCenter().lng,
                                         zoom: map.getZoom(),
                                         autoDiscover: false
-                                    });
+                            });
                                 }
                                 leafletEvents.notifyCenterChangedToBounds(leafletScope, map);
                             });
@@ -30070,9 +30070,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 } else {
                                     map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);
                                     leafletEvents.notifyCenterChangedToBounds(leafletScope, map);
-                                }
-                            });
                         }
+                    });
+                }
                     });
                 }
             };
@@ -30100,7 +30100,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         if (!isDefined(controls.edit)) {
                             controls.edit = {featureGroup: new L.FeatureGroup()};
                             map.addLayer(controls.edit.featureGroup);
-                        }
+                    }
 
                         var drawControl = new L.Control.Draw(controls);
                         map.addControl(drawControl);
@@ -30117,13 +30117,13 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             map.addControl(fullscreenControl);
                         } else {
                             $log.error('[AngularJS - Leaflet] Fullscreen plugin is not loaded.');
-                        }
+                    }
                     }
 
                     if (isDefined(controls.custom)) {
                         for (var i in controls.custom) {
                             map.addControl(controls.custom[i]);
-                        }
+                    }
                     }
                 });
             }
@@ -30225,7 +30225,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         if (eventBroadcast.map.logic !== "emit" && eventBroadcast.map.logic !== "broadcast") {
                             // This is an error
                             $log.warn("[AngularJS - Leaflet] Available event propagation logic are: 'emit' or 'broadcast'.");
-                        } else {
+                    } else {
                             logic = eventBroadcast.map.logic;
                         }
 
@@ -30238,9 +30238,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 // Do we have already the event enabled?
                                 if (mapEvents.indexOf(eventName) === -1 && availableMapEvents.indexOf(eventName) !== -1) {
                                     mapEvents.push(eventName);
-                                }
                             }
                         }
+                    }
 
                     }
 
@@ -30291,7 +30291,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 onEachFeature = function (feature, layer) {
                                     if (leafletHelpers.LabelPlugin.isLoaded() && isDefined(geojson.label)) {
                                         layer.bindLabel(feature.properties.description);
-                                    }
+                            }
 
                                     layer.on({
                                         mouseover: function (e) {
@@ -30312,9 +30312,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                             safeApply(leafletScope, function () {
                                                 $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
                                             });
-                                        }
+                                }
                                     });
-                                };
+                        };
                             }
                             return onEachFeature;
                         };
@@ -30384,9 +30384,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     //name could be layerName and or groupName
                                     //for now it is not tied to a layer
                                     _addGeojson(m, name);
-                                });
+                        });
                                 return;
-                            }
+                    }
                             _addGeojson(model);
                         };
 
@@ -30394,7 +30394,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
                         _maybeWatchCollection(leafletScope, 'geojson', watchOptions, function (geojson) {
                             _create(geojson);
-                        });
+                });
                     });
                 }
             };
@@ -30430,7 +30430,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 leafletData.getLayers().then(function (leafletLayers) {
                                     if (map.hasLayer(leafletLayers.baselayers[key])) {
                                         return;
-                                    }
+                }
                                     for (var i in scp.layers.baselayers) {
                                         scp.layers.baselayers[i].icon = scp.icons.unradio;
                                         if (map.hasLayer(leafletLayers.baselayers[i])) {
@@ -30581,7 +30581,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                             if (scope.overlaysArray[key].index === idx + delta + 1) {
                                                 lyAux = scope.overlaysArray[key];
                                             }
-                                        }
+                                }
 
                                         var input = angular.element(inp),
                                             op = isDefined(lyAux) && isDefined(lyAux.layerOptions) ?
@@ -30604,7 +30604,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                                             layer = layers.overlays[k];
                                                             break;
                                                         }
-                                                    }
+                                            }
                                                     if (map.hasLayer(ly)) {
                                                         layer.layerOptions = isDefined(layer.layerOptions) ? layer.layerOptions : {};
                                                         layer.layerOptions.opacity = val.input.val() / 100;
@@ -30615,11 +30615,11 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                                             ly.eachLayer(function (lay) {
                                                                 if (lay.setOpacity) {
                                                                     lay.setOpacity(val.input.val() / 100);
-                                                                }
+                                                        }
                                                             });
                                                         }
-                                                    }
-                                                });
+                                            }
+                                        });
                                             }
                                         });
                                     });
@@ -30628,7 +30628,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 }
                                 unreg();
                             }
-                        });
+                });
 
                         scope.overlaysArray = overlaysArray;
                     }, true);
@@ -30676,7 +30676,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         if (!isDefined(newBaseLayer)) {
                             delete layers.baselayers[layerName];
                             continue;
-                        }
+                    }
                         leafletLayers.baselayers[layerName] = newBaseLayer;
                         // Only add the visible layer to the map, layer control manages the addition to the map
                         // of layers in its control
@@ -30695,7 +30695,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     for (layerName in layers.overlays) {
                         if (layers.overlays[layerName].type === 'cartodb') {
 
-                        }
+                    }
                         var newOverlayLayer = createLayer(layers.overlays[layerName]);
                         if (!isDefined(newOverlayLayer)) {
                             delete layers.overlays[layerName];
@@ -30716,9 +30716,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 // Remove from the map if it's on it
                                 if (map.hasLayer(leafletLayers.baselayers[name])) {
                                     map.removeLayer(leafletLayers.baselayers[name]);
-                                }
-                                delete leafletLayers.baselayers[name];
                             }
+                                delete leafletLayers.baselayers[name];
+                        }
                         }
                         // add new layers
                         for (var newName in newBaseLayers) {
@@ -30728,16 +30728,16 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     leafletLayers.baselayers[newName] = testBaseLayer;
                                     // Only add the visible layer to the map
                                     if (newBaseLayers[newName].top === true) {
-                                        map.addLayer(leafletLayers.baselayers[newName]);
-                                    }
+                                    map.addLayer(leafletLayers.baselayers[newName]);
                                 }
+                            }
                             } else {
                                 if (newBaseLayers[newName].top === true && !map.hasLayer(leafletLayers.baselayers[newName])) {
                                     map.addLayer(leafletLayers.baselayers[newName]);
                                 } else if (newBaseLayers[newName].top === false && map.hasLayer(leafletLayers.baselayers[newName])) {
                                     map.removeLayer(leafletLayers.baselayers[newName]);
                                 }
-                            }
+                        }
                         }
 
                         //we have layers, so we need to make, at least, one active
@@ -30747,7 +30747,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             if (map.hasLayer(leafletLayers.baselayers[key])) {
                                 found = true;
                                 break;
-                            }
+                        }
                         }
                         // If there is no active layer make one active
                         if (!found && Object.keys(leafletLayers.baselayers).length > 0) {
@@ -30766,10 +30766,10 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 // Remove from the map if it's on it
                                 if (map.hasLayer(leafletLayers.overlays[name])) {
                                     map.removeLayer(leafletLayers.overlays[name]);
-                                }
+                            }
                                 // TODO: Depending on the layer type we will have to delete what's included on it
                                 delete leafletLayers.overlays[name];
-                            }
+                        }
                         }
 
                         // add new overlays
@@ -30779,11 +30779,11 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 if (!isDefined(testOverlayLayer)) {
                                     // If the layer creation fails, continue to the next overlay
                                     continue;
-                                }
+                            }
                                 leafletLayers.overlays[newName] = testOverlayLayer;
                                 if (newOverlayLayers[newName].visible === true) {
-                                    map.addLayer(leafletLayers.overlays[newName]);
-                                }
+                                map.addLayer(leafletLayers.overlays[newName]);
+                            }
                             }
 
                             // check for the .visible property to hide/show overLayers
@@ -30791,7 +30791,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 map.addLayer(leafletLayers.overlays[newName]);
                             } else if (newOverlayLayers[newName].visible === false && map.hasLayer(leafletLayers.overlays[newName])) {
                                 map.removeLayer(leafletLayers.overlays[newName]);
-                            }
+                        }
 
                             //refresh heatmap data if present
                             if (newOverlayLayers[newName].visible && map._loaded && newOverlayLayers[newName].data && newOverlayLayers[newName].type === "heatmap") {
@@ -30837,7 +30837,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         position = newLegend.position || 'bottomright';
 
                         // default to arcgis
-                        type = newLegend.type || 'arcgis';
+                        type = newLegend.type || 'arcgis'; 
                     }
 
                 }, true);
@@ -31024,13 +31024,13 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             map.addLayer(marker);
                             if (!watchOptions.individual.doWatch && model.focus === true) {
                                 leafletMarkersHelpers.manageOpenPopup(marker, model);
-                            }
-                        }
+                    }
+                }
                         var pathToMarker = Helpers.getObjectDotPath(maybeLayerName ? [maybeLayerName, newName] : [newName]);
                         if (watchOptions.individual.doWatch) {
                             addMarkerWatcher(marker, pathToMarker, leafletScope, layers, map,
                                 watchOptions.individual.doWatch);
-                        }
+                }
 
                         listenMarkerEvents(marker, model, leafletScope, watchOptions.individual.doWatch);
                         bindMarkerEvents(marker, pathToMarker, model, leafletScope, layerName);
@@ -31083,7 +31083,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 deferred.resolve();
                                 return deferred.promise;
                             };
-                        }
+                }
 
                         var watchOptions = leafletScope.markersWatchOptions || _markersWatchOptions;
 
@@ -31106,8 +31106,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         _addMarkers(markersToAdd, map, layers, leafletMarkers, leafletScope,
                                             watchOptions, layerName);
                                     });
-                                    return;
-                                }
+                            return;
+                        }
                                 _addMarkers(models, map, layers, leafletMarkers, leafletScope,
                                     watchOptions);
                             };
@@ -31116,8 +31116,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
                             maybeWatch(leafletScope, 'markers', watchOptions, function (newMarkers, oldMarkers) {
                                 _create(newMarkers, oldMarkers);
-                            });
-                        });
+                    });
+                });
                     });
                 }
             };
@@ -31142,7 +31142,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             // Unset any previous maxbounds
                             map.setMaxBounds();
                             return;
-                        }
+                    }
 
                         var leafletBounds = leafletBoundsHelpers.createLeafletBounds(maxbounds);
                         if (isNumber(maxbounds.pad)) {
@@ -31152,7 +31152,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         map.setMaxBounds(leafletBounds);
                         if (!attrs.center) {
                             map.fitBounds(leafletBounds);
-                        }
+                    }
                     });
                 });
             }
@@ -31211,8 +31211,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         for (var i in layers.overlays) {
                                             var overlay = layers.overlays[i];
                                             overlay.removeLayer(leafletPath);
-                                        }
                                     }
+                                }
                                     map.removeLayer(leafletPath);
                                     clearWatch();
                                     return;
@@ -31228,7 +31228,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                 if (!isDefined(newPaths[name])) {
                                     map.removeLayer(leafletPaths[name]);
                                     delete leafletPaths[name];
-                                }
+                            }
                             }
 
                             // Create the new paths
@@ -31248,12 +31248,12 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     // bind popup if defined
                                     if (isDefined(newPath) && isDefined(pathData.message)) {
                                         newPath.bindPopup(pathData.message);
-                                    }
+                                }
 
                                     // Show label if defined
                                     if (leafletHelpers.LabelPlugin.isLoaded() && isDefined(pathData.label) && isDefined(pathData.label.message)) {
                                         newPath.bindLabel(pathData.label.message, pathData.label.options);
-                                    }
+                                }
 
                                     // Check if the marker should be added to a layer
                                     if (isDefined(pathData) && isDefined(pathData.layer)) {
@@ -31261,7 +31261,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         if (!isString(pathData.layer)) {
                                             $log.error('[AngularJS - Leaflet] A layername must be a string');
                                             continue;
-                                        }
+                                    }
                                         if (!isDefined(layers)) {
                                             $log.error('[AngularJS - Leaflet] You must add layers to the directive if the markers are going to use this functionality.');
                                             continue;
@@ -31270,7 +31270,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         if (!isDefined(layers.overlays) || !isDefined(layers.overlays[pathData.layer])) {
                                             $log.error('[AngularJS - Leaflet] A marker can only be added to a layer of type "group"');
                                             continue;
-                                        }
+                                    }
                                         var layerGroup = layers.overlays[pathData.layer];
                                         if (!(layerGroup instanceof L.LayerGroup || layerGroup instanceof L.FeatureGroup)) {
                                             $log.error('[AngularJS - Leaflet] Adding a marker to an overlay needs a overlay of the type "group" or "featureGroup"');
@@ -31286,7 +31286,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                             watchPathFn(newPath, newName);
                                         } else {
                                             setPathOptions(newPath, pathData.type, pathData);
-                                        }
+                                    }
                                     } else if (isDefined(newPath)) {
                                         // Listen for changes on the new path
                                         leafletPaths[newName] = newPath;
@@ -31297,13 +31297,13 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         } else {
                                             setPathOptions(newPath, pathData.type, pathData);
                                         }
-                                    }
+                                }
 
                                     bindPathEvents(newPath, newName, pathData, leafletScope);
-                                }
                             }
-                        });
+                            }
                     });
+                });
                 });
             }
         };
@@ -31342,12 +31342,12 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         // No leafletTiles object defined yet
                         if (!isDefined(tileLayerObj)) {
                             if (isDefined(tiles.options)) {
-                                angular.copy(tiles.options, tileLayerOptions);
-                            }
+                            angular.copy(tiles.options, tileLayerOptions);
+                        }
 
-                            if (isDefined(tiles.url)) {
-                                tileLayerUrl = tiles.url;
-                            }
+                        if (isDefined(tiles.url)) {
+                            tileLayerUrl = tiles.url;
+                        }
 
                             tileLayerObj = L.tileLayer(tileLayerUrl, tileLayerOptions);
                             tileLayerObj.addTo(map);
@@ -31370,7 +31370,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         // Only the URL of the layer is changed, update the tiles object
                         if (isDefined(tiles.url)) {
                             tileLayerObj.setUrl(tiles.url);
-                        }
+                    }
                     }, true);
                 });
             }
@@ -31392,27 +31392,27 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     isObject = leafletHelpers.isObject,
                     _watchOptions = leafletHelpers.watchOptions;
 
-                return {
-                    restrict: "A",
-                    scope: false,
-                    replace: false,
-                    require: ['leaflet'],
+            return {
+                restrict: "A",
+                scope: false,
+                replace: false,
+                require: ['leaflet'],
 
-                    link: function (scope, element, attrs, controller) {
-                        var mapController = controller[0],
-                            leafletScope = mapController.getLeafletScope();
+                link: function (scope, element, attrs, controller) {
+                    var mapController = controller[0],
+                        leafletScope = mapController.getLeafletScope();
 
-                        mapController.getMap().then(function () {
-                            if (isDefined(scope[name + 'WatchOptions'])) {
-                                if (isObject(scope[name + 'WatchOptions']))
-                                    angular.extend(_watchOptions, scope[name + 'WatchOptions']);
-                                else
-                                    $log.error(errorHeader + '[' + name + 'WatchOptions] is not an object');
-                                leafletScope[name + 'WatchOptions'] = _watchOptions;
-                            }
-                        });
-                    }
-                };
+                    mapController.getMap().then(function () {
+                        if (isDefined(scope[name + 'WatchOptions'])) {
+                            if (isObject(scope[name + 'WatchOptions']))
+                                angular.extend(_watchOptions, scope[name + 'WatchOptions']);
+                            else
+                                $log.error(errorHeader + '[' + name + 'WatchOptions] is not an object');
+                            leafletScope[name + 'WatchOptions'] = _watchOptions;
+                        }
+                    });
+                }
+            };
             }]);
     });
 
@@ -31429,7 +31429,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         leafletObject: lObject,
                         modelName: modelName,
                         model: model
-                    };
+                };
                     if (isDefined(layerName))
                         angular.extend(toSend, {layerName: layerName});
 
@@ -31437,7 +31437,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         scope.$emit(broadcastName, toSend);
                     } else {
                         $rootScope.$broadcast(broadcastName, toSend);
-                    }
+                }
                 });
             };
 
@@ -31624,7 +31624,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                         });
                         if (model.message && model.focus === true) {
                             lObject.openPopup();
-                        }
+                }
                     }
 
                     fire(leafletScope, broadcastName, logic, e, e.target || lObject, model, name, layerName);
@@ -31670,9 +31670,9 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             // We do not have events enable/disable do we do nothing (all enabled by default)
                             markerEvents = _getAvailableMarkerEvents();
                         } else if (!isObject(leafletScope.eventBroadcast.marker)) {
-                            // Not a valid object
+                    // Not a valid object
                             $log.warn(errorHeader + "event-broadcast.marker must be an object check your model.");
-                        } else {
+                } else {
                             // We have a possible valid map object
                             // Event propadation logic
                             if (leafletScope.eventBroadcast.marker.logic !== undefined && leafletScope.eventBroadcast.marker.logic !== null) {
@@ -31682,19 +31682,19 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                     $log.warn(errorHeader + "Available event propagation logic are: 'emit' or 'broadcast'.");
                                 } else if (leafletScope.eventBroadcast.marker.logic === "emit") {
                                     logic = "emit";
-                                }
+                        }
                             }
                             // Enable / Disable
                             var markerEventsEnable = false, markerEventsDisable = false;
                             if (leafletScope.eventBroadcast.marker.enable !== undefined && leafletScope.eventBroadcast.marker.enable !== null) {
                                 if (typeof leafletScope.eventBroadcast.marker.enable === 'object') {
                                     markerEventsEnable = true;
-                                }
+                        }
                             }
                             if (leafletScope.eventBroadcast.marker.disable !== undefined && leafletScope.eventBroadcast.marker.disable !== null) {
                                 if (typeof leafletScope.eventBroadcast.marker.disable === 'object') {
                                     markerEventsDisable = true;
-                                }
+                        }
                             }
                             if (markerEventsEnable && markerEventsDisable) {
                                 // Both are active, this is an error
@@ -31717,11 +31717,11 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                             if (_getAvailableMarkerEvents().indexOf(eventName) === -1) {
                                                 // The event does not exists, this is an error
                                                 $log.warn(errorHeader + "This event " + eventName + " does not exist");
-                                            } else {
+                                    } else {
                                                 // All ok enable the event
                                                 markerEvents.push(eventName);
-                                            }
-                                        }
+                                    }
+                                }
                                     }
                                 } else {
                                     // Disable events
@@ -31735,11 +31735,11 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
                                         } else {
                                             markerEvents.splice(index, 1);
-                                        }
-                                    }
                                 }
                             }
                         }
+                    }
+                }
                     }
 
                     for (i = 0; i < markerEvents.length; i++) {
@@ -31750,8 +31750,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
                     if (Helpers.LabelPlugin.isLoaded() && isDefined(lObject.label)) {
                         lblHelp.genLabelEvents(name, logic, leafletScope, lObject, model, layerName);
-                    }
-                }
+            }
+        }
             };
         }]);
 
@@ -31770,8 +31770,8 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                     var broadcastName = 'leafletDirectivePath.' + eventName;
 
                     fire(leafletScope, broadcastName, logic, e, e.target || lObject, model, name, layerName);
-                };
-            };
+        };
+    };
 
             var _bindPathEvents = function (lObject, name, model, leafletScope) {
                 var pathEvents = [],
@@ -31804,19 +31804,19 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                             } else if (leafletScope.eventBroadcast.path.logic === "emit") {
                                 logic = "emit";
                             }
-                        }
+                }
                         // Enable / Disable
                         var pathEventsEnable = false, pathEventsDisable = false;
                         if (leafletScope.eventBroadcast.path.enable !== undefined && leafletScope.eventBroadcast.path.enable !== null) {
                             if (typeof leafletScope.eventBroadcast.path.enable === 'object') {
                                 pathEventsEnable = true;
                             }
-                        }
+                }
                         if (leafletScope.eventBroadcast.path.disable !== undefined && leafletScope.eventBroadcast.path.disable !== null) {
                             if (typeof leafletScope.eventBroadcast.path.disable === 'object') {
                                 pathEventsDisable = true;
-                            }
-                        }
+                    }
+                }
                         if (pathEventsEnable && pathEventsDisable) {
                             // Both are active, this is an error
                             $log.warn(errorHeader + "can not enable and disable events at the same time");
@@ -31858,19 +31858,19 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
                                         pathEvents.splice(index, 1);
                                     }
                                 }
-                            }
-                        }
                     }
+                }
+            }
                 }
 
                 for (i = 0; i < pathEvents.length; i++) {
                     eventName = pathEvents[i];
                     lObject.on(eventName, _genDispatchPathEvent(eventName, logic, leafletScope, pathEvents, name));
-                }
+        }
 
                 if (Helpers.LabelPlugin.isLoaded() && isDefined(lObject.label)) {
                     lblHelp.genLabelEvents(leafletScope, logic, lObject, name);
-                }
+        }
             };
 
             var _getAvailablePathEvents = function () {
