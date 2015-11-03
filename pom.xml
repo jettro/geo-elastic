@@ -13,15 +13,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <version>1.2.6.RELEASE</version>
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
 
 
     <properties>
-        <elasticsearch.version>1.4.4</elasticsearch.version>
-        <elasticsearch.shield.version>1.0.1</elasticsearch.shield.version>
+        <elasticsearch.version>2.0.0</elasticsearch.version>
+        <elasticsearch.shield.version>2.0.0</elasticsearch.shield.version>
 
         <maven.compiler.plugin>3.1</maven.compiler.plugin>
         <java.version>1.8</java.version>
@@ -37,12 +37,6 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
             <version>${elasticsearch.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch-shield</artifactId>
-            <version>${elasticsearch.shield.version}</version>
         </dependency>
 
         <dependency>

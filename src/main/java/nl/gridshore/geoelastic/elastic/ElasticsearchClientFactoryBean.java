@@ -2,7 +2,6 @@ package nl.gridshore.geoelastic.elastic;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -32,9 +30,6 @@ public class ElasticsearchClientFactoryBean implements FactoryBean<Client>, Init
 
     @Value("${elastic.cluster.name}")
     private String clusterName;
-
-    @Value("${elastic.shield.usernamepassword}")
-    private String usernamePassword;
 
     private Client client; //Thread safe: its lifecycle should be similar to the application lifecycle
 
@@ -60,11 +55,7 @@ public class ElasticsearchClientFactoryBean implements FactoryBean<Client>, Init
 
     @Override
     public void afterPropertiesSet() {
-        ImmutableSettings.Builder settingsBuilder = ImmutableSettings.settingsBuilder().put("cluster.name", clusterName);
-        if (StringUtils.hasLength(usernamePassword)) {
-            settingsBuilder.put("shield.user", usernamePassword);
-        }
-        Settings settings = settingsBuilder.build();
+        Settings settings = Settings.settingsBuilder().put("cluster.name", clusterName).build();
 
         logger.debug("Settings used for connection to elasticsearch : {}", settings.toDelimitedString('#'));
 
@@ -75,7 +66,7 @@ public class ElasticsearchClientFactoryBean implements FactoryBean<Client>, Init
 
         logger.debug("Hosts used for transport client : {}", addresses);
 
-        client = new TransportClient(settings)
+        client = TransportClient.builder().settings(settings).build()
                 .addTransportAddresses(addresses.toArray(new TransportAddress[addresses.size()]));
     }
 

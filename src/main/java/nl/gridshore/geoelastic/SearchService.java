@@ -5,13 +5,12 @@ import nl.gridshore.geoelastic.elastic.IndexCreator;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.percolate.PercolateResponse;
 import org.elasticsearch.action.percolate.PercolateSourceBuilder;
-import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.FilteredQueryBuilder;
-import org.elasticsearch.index.query.GeoPolygonFilterBuilder;
+import org.elasticsearch.index.query.GeoPolygonQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
-import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 
 /**
  * Search service to expose search functionality
@@ -45,13 +42,13 @@ public class SearchService {
     }
 
     public long numberOfPostalCodes() {
-        return client.prepareSearch(GEO_INDEX).setTypes("locations").setSearchType(SearchType.COUNT)
+        return client.prepareSearch(GEO_INDEX).setTypes("locations").setSize(0)
                 .get().getHits().getTotalHits();
     }
 
     public long doSomething() {
         String provincePoints = "noordholland.txt";
-        FilteredQueryBuilder filteredQueryBuilder = createQuery(provincePoints);
+        QueryBuilder filteredQueryBuilder = createQuery(provincePoints);
 
         return client.prepareSearch("geostuff").setQuery(filteredQueryBuilder).get().getHits().getTotalHits();
     }
@@ -97,12 +94,10 @@ public class SearchService {
     }
 
     public Province obtainPercolatedProvince(String province) {
-        GetResponse response = client.prepareGet(GEO_INDEX, ".percolator", province).setFetchSource("query.filtered.filter.*", null).get();
+        GetResponse response = client.prepareGet(GEO_INDEX, ".percolator", province).setFetchSource("query.*", null).get();
         Map<String, Object> source = response.getSource();
         Map<String, Object> query = (Map<String, Object>) source.get("query");
-        Map<String, Object> filtered = (Map<String, Object>) query.get("filtered");
-        Map<String, Object> filter = (Map<String, Object>) filtered.get("filter");
-        Map<String, Object> geoPolugon = (Map<String, Object>) filter.get("geo_polygon");
+        Map<String, Object> geoPolugon = (Map<String, Object>) query.get("geo_polygon");
         Map<String, Object> location = (Map<String, Object>) geoPolugon.get("location");
         ArrayList<ArrayList<Double>> points = (ArrayList<ArrayList<Double>>) location.get("points");
 
@@ -113,17 +108,17 @@ public class SearchService {
         try {
             client.prepareIndex(GEO_INDEX, ".percolator", "province_" + province)
                     .setSource(jsonBuilder()
-                                    .startObject()
-                                    .field("query", createQuery(province + ".txt"))
-                                    .field("province", province)
-                                    .endObject()
+                            .startObject()
+                            .field("query", createQuery(province + ".txt"))
+                            .field("province", province)
+                            .endObject()
                     ).setRefresh(true).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private FilteredQueryBuilder createQuery(String provincePoints) {
+    private QueryBuilder createQuery(String provincePoints) {
         final List<GeoPoint> polygon = new ArrayList<>();
         List<String> geo = null;
         try {
@@ -136,10 +131,10 @@ public class SearchService {
             polygon.add(new GeoPoint(s));
         });
 
-        GeoPolygonFilterBuilder geoPolygonFilterBuilder = FilterBuilders.geoPolygonFilter("location");
+        GeoPolygonQueryBuilder geoPolygonFilterBuilder = QueryBuilders.geoPolygonQuery("location");
 
         polygon.stream().forEach(geoPolygonFilterBuilder::addPoint);
 
-        return filteredQuery(matchAllQuery(), geoPolygonFilterBuilder);
+        return geoPolygonFilterBuilder;
     }
 }
